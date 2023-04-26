@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<link rel="stylesheet" href="styles.css">
+
+<head>
+    <meta charset="UTF-8">
+    <title>2022 Dev-Matching: 웹 프론트엔드 개발자(하반기)-2</title>
+</head>
+
+<body>
+    <div class="App">
+        <div id="page_title">Grepp Enterprise</div>
+        <div class="area" id="dropdown">
+            <select name="showAmount" id="showAmount">
+                <option value="5">5개씩</option>
+                <option value="15">15개씩</option>
+
+            </select>
+
+
+        </div>
+        <div class="area" id="table">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">name</th>
+                        <th scope="col">title</th>
+                        <th scope="col">email</th>
+                        <th scope="col">role</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                </tbody>
+            </table>
+        </div>
+        <div class="area" id="pagination">
+            <button class="arrow">
+                << </button>
+                    <button class="arrow">>></button>
+        </div>
+    </div>
+    <script type="module" src="index.js"></script>
+</body>
+
+</html>
