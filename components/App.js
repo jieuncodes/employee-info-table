@@ -1,29 +1,17 @@
-export class App {
-    constructor($app) {
-        this.$app = $app;
-        this.state = {
-            selectedPage: 1,
-            perPage: 5,
-            totalPages: 5,
-        };
-        this.render();
+import Pagination from "./Pagination.js";
+import Table from './Table.js';
+import Dropdown from './Dropdown.js';
 
+export default class App {
+  async render() {
+    const response = await fetch('./src/data.json');
 
-        this.setState = (nextState) => {
-            this.state = nextState;
-        };
+    if (response.ok) {
+      const fetchedData = await response.json();
+    
+      new Table(fetchedData);
+      new Pagination(fetchedData);
+      new Dropdown(fetchedData, [5, 15]);
     }
-    async render(){
-        try{
-            const res = await fetch("../src/data.json");
-            if(res.ok){
-                new Table(data);
-            } else {
-
-            }
-        } catch(error){
-            console.log('error', error);
-        }
-    }
+  }
 }
-export default App;

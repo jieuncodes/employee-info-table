@@ -1,4 +1,4 @@
-class Table {
+export default class Table {
   constructor(data) {
     this.data = data;
     this.render();
@@ -13,12 +13,11 @@ class Table {
       th.appendChild(document.createTextNode(Object.keys(this.data[0])[i]));
       theadTr.appendChild(th);
     }
-
     thead.appendChild(theadTr);
     return thead;
   };
 
-  displayTableData = (data) => {
+  getRowData = (data) => {
     const tr = document.createElement("tr");
     for (let i = 0; i < 4; i++) {
       const td = document.createElement("td");
@@ -28,21 +27,19 @@ class Table {
     return tr;
   };
 
-  render() {
-    const table = document.createElement("table");
+  paintTableFrame = () => {
+    const table = document.getElementById("table");
     table.replaceChildren();
     const thead = this.displayTableHead();
     const tbody = document.createElement("tbody");
-
     for (let i = 0; i < this.data.length; i++) {
-      let tbodyTr = this.displayTableData(this.data[i]);
+      let tbodyTr = this.getRowData(this.data[i]);
       tbody.appendChild(tbodyTr);
     }
-
-    table.appendChild(tbody);
     table.appendChild(thead);
-    document.getElementById("table").appendChild(table);
+    table.appendChild(tbody);
+  };
+  render() {
+    this.paintTableFrame();
   }
 }
-
-export default Table;

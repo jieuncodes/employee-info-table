@@ -61,3 +61,6 @@ button.arrow {
 .hidden{
     display:none;
 }
+button.active{
+    color:red;
+}
