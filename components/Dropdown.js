@@ -25,10 +25,8 @@ export default class Dropdown {
       let pagePerCnt = Number(event.target.value);
       let maxPageCnt = Math.ceil(this.data.length/pagePerCnt)+ 2;
       let currPage = 1;
-        console.log('', document.getElementById("pagination"));
       document.getElementById("pagination").innerHTML = "";
       document.getElementById("table").innerHTML = "";
-      console.log('', document.getElementById("pagination"));
 
       new Table(this.data.slice(0, pagePerCnt));
       new Pagination(this.data).setPaginationButtons(maxPageCnt, currPage);

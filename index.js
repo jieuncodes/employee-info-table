@@ -1,4 +1,6 @@
 import App from "./components/App.js"
 
-const app = new App(document.querySelector(".App"));
-app.render();
+const $app = document.querySelector(".App");
+
+new App($app);
+    

@@ -1,23 +1,32 @@
 export default class Table {
-  constructor(data) {
-    this.data = data;
+  constructor() {
+    this.state = {
+      fetchedData: null,
+      tableHead: null,
+      tableBody: null,
+    };
+    this.$target = document.createElement("table");
+    this.$target.id = "table";
+    const tableArea = document.getElementById("table");
+    tableArea.appendChild(this.$target);
+  }
+
+  setState(nextState) {
+    this.state = nextState;
     this.render();
   }
 
-  displayTableHead = () => {
-    const thead = document.createElement("thead");
-    const theadTr = document.createElement("tr");
-
-    for (let i = 0; i < 4; i++) {
-      const th = document.createElement("th");
-      th.appendChild(document.createTextNode(Object.keys(this.data[0])[i]));
-      theadTr.appendChild(th);
+  setTableHead() {
+    if (!this.state.tableHead) {
+      const headerKeys = Object.keys(this.state.fetchedData[0]);
+      const headerCells = headerKeys.map((key) => `<th>${key}</th>`).join('');
+      const thead = `<thead><tr>${headerCells}</tr></thead>`;
+      this.state.tableHead = thead;
     }
-    thead.appendChild(theadTr);
-    return thead;
-  };
+    return this.state.tableHead;
+  }
 
-  getRowData = (data) => {
+  getRowData(data) {
     const tr = document.createElement("tr");
     for (let i = 0; i < 4; i++) {
       const td = document.createElement("td");
@@ -25,21 +34,27 @@ export default class Table {
       tr.appendChild(td);
     }
     return tr;
-  };
+  }
 
-  paintTableFrame = () => {
-    const table = document.getElementById("table");
-    table.replaceChildren();
-    const thead = this.displayTableHead();
+  setTableBody() {
     const tbody = document.createElement("tbody");
-    for (let i = 0; i < this.data.length; i++) {
-      let tbodyTr = this.getRowData(this.data[i]);
+    for (let i = 0; i < this.state.fetchedData.length; i++) {
+      const tbodyTr = this.getRowData(this.state.fetchedData[i]);
       tbody.appendChild(tbodyTr);
     }
-    table.appendChild(thead);
-    table.appendChild(tbody);
-  };
+    this.state.tableBody = tbody;
+    return tbody;
+  }
+
+  paintTableFrame() {
+    this.$target.replaceChildren();
+    this.$target.innerHTML = this.setTableHead();
+    this.$target.appendChild(this.setTableBody());
+  }
+
   render() {
-    this.paintTableFrame();
+    if (this.state.fetchedData) {
+      this.paintTableFrame();
+    }
   }
 }

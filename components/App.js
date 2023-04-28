@@ -1,17 +1,47 @@
 import Pagination from "./Pagination.js";
-import Table from './Table.js';
-import Dropdown from './Dropdown.js';
+import Table from "./Table.js";
+import Dropdown from "./Dropdown.js";
+import { fetchData } from "../fetchData.js";
 
 export default class App {
-  async render() {
-    const response = await fetch('./src/data.json');
-
-    if (response.ok) {
-      const fetchedData = await response.json();
+    constructor($app) {
+        this.state = {
+          currentPage: 1,
+          showingContentsNum: 5,
+          totalPages:5,
+          fetchedData: null,
+        };
     
-      new Table(fetchedData);
-      new Pagination(fetchedData);
-      new Dropdown(fetchedData, [5, 15]);
+        const table = new Table();
+        const pagination = new Pagination($app);
+        this.dropdown = new Dropdown($app, [5, 15]);
+    
+        this.setState = (nextState) => {
+          this.state = nextState;
+          table.setState({
+            fetchedData: this.state.fetchedData,
+          });
+          pagination.setState({
+            currentPage: this.state.currentPage,
+            showingContentsNum: this.state.showingContentsNum,
+            totalPages:this.state.totalPages,
+            fetchedData: this.state.fetchedData,
+          });
+        };
+    
+        const init = async () => {
+          try {
+            const fetchedData = await fetchData();
+            this.setState({
+              ...this.state,
+              fetchedData,
+            });
+          } catch (error) {
+            console.log("ERROR!!", error);
+          }
+        };
+    
+        init();
+      }
     }
-  }
-}
+    
