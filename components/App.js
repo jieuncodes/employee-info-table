@@ -14,7 +14,7 @@ export default class App {
     
         const table = new Table();
         const pagination = new Pagination($app);
-        this.dropdown = new Dropdown($app, [5, 15]);
+        const dropdown = new Dropdown(this.showingContentsNum)
     
         this.setState = (nextState) => {
           this.state = nextState;

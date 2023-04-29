@@ -7,7 +7,6 @@ export default class Pagination {
       numPageBtns: 7,
       totalPages:5,
       fetchedData: null,
-    
     };
 
     this.render();
@@ -24,7 +23,6 @@ export default class Pagination {
   }
 
   getPaginationButtonsMarkup() {
-
     let buttonsMarkup = '';
     for (let i = 0; i < this.state.numPageBtns; i++) {
       if (i == 0) {

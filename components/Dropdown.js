@@ -1,36 +1,31 @@
-import Pagination from "./Pagination.js";
-import Table from "./Table.js";
-
 export default class Dropdown {
-  constructor(data, options) {
-    this.data = data;
-    this.options = options;
-    this.render();
+  constructor() {
+    this.$target = document.getElementById("dropdown");
+    this.options = [5, 15];
+
+    this.state = {
+      showingContentsNum: 5,
+    };
+
+    this.setDropDownOptions();
+    this.addEventListeners();
   }
 
-  render() {
-    const select = document.createElement("select");
-    select.setAttribute("id", "cntPerPage");
+  setDropDownOptions() {
+    const selector = document.createElement("select");
+    selector.id = "selector";
 
-    for (let i in this.options) {
-      const option = document.createElement("option");
-      option.setAttribute("value", this.options[i]);
-      option.appendChild(document.createTextNode(this.options[i] + "개씩"));
-      select.appendChild(option);
-    }
+    this.options.forEach((option) => {
+      selector.innerHTML += `<option id="option" value="${option}">${option}개씩</option>`;
+    });
 
-    document.getElementById("dropdown").appendChild(select);
+    this.$target.appendChild(selector);
+  }
 
-    select.addEventListener("change", (event) => {
-      let pagePerCnt = Number(event.target.value);
-      let maxPageCnt = Math.ceil(this.data.length/pagePerCnt)+ 2;
-      let currPage = 1;
-      document.getElementById("pagination").innerHTML = "";
-      document.getElementById("table").innerHTML = "";
-
-      new Table(this.data.slice(0, pagePerCnt));
-      new Pagination(this.data).setPaginationButtons(maxPageCnt, currPage);
+  addEventListeners() {
+    const selector = document.getElementById("selector");
+    selector.addEventListener("change", (event) => {
+      this.state.showingContentsNum = event.currentTarget.value;
     });
   }
 }
-
