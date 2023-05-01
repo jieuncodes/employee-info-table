@@ -1,14 +1,22 @@
 export default class Dropdown {
-  constructor() {
+  constructor({ options, onChange }) {
     this.$target = document.getElementById("dropdown");
-    this.options = [5, 15];
+    this.options = options;
 
     this.state = {
-      showingContentsNum: 5,
+      showingContentsNum: options[0],
     };
+
+    this.onChange = onChange;
 
     this.setDropDownOptions();
     this.addEventListeners();
+  }
+
+  setState(nextState) {
+    this.state = nextState;
+    this.render();
+    console.log('showingContentsNum', showingContentsNum);
   }
 
   setDropDownOptions() {
@@ -26,6 +34,7 @@ export default class Dropdown {
     const selector = document.getElementById("selector");
     selector.addEventListener("change", (event) => {
       this.state.showingContentsNum = event.currentTarget.value;
+      this.onChange(this.state.showingContentsNum)
     });
   }
 }

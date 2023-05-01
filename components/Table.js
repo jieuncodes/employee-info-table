@@ -1,10 +1,11 @@
 export default class Table {
   constructor() {
     this.state = {
-      fetchedData: null,
       tableHead: null,
       tableBody: null,
+      pageData: null,
     };
+
     this.$target = document.createElement("table");
     this.$target.id = "table";
     const tableArea = document.getElementById("table");
@@ -18,7 +19,7 @@ export default class Table {
 
   setTableHead() {
     if (!this.state.tableHead) {
-      const headerKeys = Object.keys(this.state.fetchedData[0]);
+      const headerKeys = Object.keys(this.state.pageData[0]);
       const headerCells = headerKeys.map((key) => `<th>${key}</th>`).join('');
       const thead = `<thead><tr>${headerCells}</tr></thead>`;
       this.state.tableHead = thead;
@@ -38,8 +39,8 @@ export default class Table {
 
   setTableBody() {
     const tbody = document.createElement("tbody");
-    for (let i = 0; i < this.state.fetchedData.length; i++) {
-      const tbodyTr = this.getRowData(this.state.fetchedData[i]);
+    for (let i = 0; i < this.state.pageData.length; i++) {
+      const tbodyTr = this.getRowData(this.state.pageData[i]);
       tbody.appendChild(tbodyTr);
     }
     this.state.tableBody = tbody;
@@ -53,7 +54,7 @@ export default class Table {
   }
 
   render() {
-    if (this.state.fetchedData) {
+    if (this.state.pageData) {
       this.paintTableFrame();
     }
   }

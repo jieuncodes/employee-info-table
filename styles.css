@@ -24,6 +24,9 @@ thead{
     background-color: lightgrey;
     font-weight: bold;
 }
+tr:nth-child(even){
+    background-color: lightgrey;
+}
 
 .area {
     margin: 10px 0;
@@ -63,4 +66,7 @@ button.arrow {
 }
 button.active{
     color:red;
+}
+button{
+    color: black;
 }
