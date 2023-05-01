@@ -25,7 +25,7 @@ export default class App {
         currentPage: clickedPage,
       });
     };
-
+ 
     const table = new Table();
     let pagination;
     new Dropdown({
@@ -43,6 +43,7 @@ export default class App {
           this.state.showingContentsNum
         )
       });
+      
       if (pagination) {
         pagination.setState({
           currentPage: this.state.currentPage,
@@ -66,7 +67,6 @@ export default class App {
           ...this.state,
           fetchedData,
         });
-        console.log('this.state(app)', this.state);
 
       } catch (error) {
         console.log("ERROR!!", error);

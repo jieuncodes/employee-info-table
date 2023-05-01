@@ -21,11 +21,11 @@ th, td {
     padding: 8px;
 }
 thead{
-    background-color: lightgrey;
+    background-color: lightgray;
     font-weight: bold;
 }
 tr:nth-child(even){
-    background-color: lightgrey;
+    background-color: lightgray;
 }
 
 .area {
